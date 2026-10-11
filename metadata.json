@@ -1,0 +1,6 @@
+{
+  "name": "Auron AI Assistant",
+  "description": "Production-ready voice-first AI assistant powered by Gemini Live API with real-time bidirectional audio streaming, natural interruption handling, and browser function calling.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
