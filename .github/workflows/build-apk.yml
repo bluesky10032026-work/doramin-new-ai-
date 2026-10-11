@@ -17,17 +17,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install dependencies & build web bundle
-        run: |
-          npm ci || npm install
-          npm run build
-
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -37,17 +26,17 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Make gradlew executable
+      - name: Set up Gradle 8.2
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.2'
+
+      - name: Build Android APK with Gradle
         run: |
           cd android
-          chmod +x gradlew || true
+          gradle assembleDebug --stacktrace
 
-      - name: Build Android Debug APK
-        run: |
-          cd android
-          gradle assembleDebug || ./gradlew assembleDebug
-
-      - name: Locate and Prepare APK
+      - name: Prepare APK Output
         run: |
           mkdir -p output-apk
           find android/app/build/outputs/apk/ -name "*.apk" -exec cp {} output-apk/doraemon-ai-release.apk \;
@@ -56,24 +45,24 @@ jobs:
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: doraemon-ai-apk
-          path: output-apk/*.apk
+          name: doraemon-ai-release-apk
+          path: output-apk/doraemon-ai-release.apk
           retention-days: 30
 
-      - name: Create GitHub Release with APK
+      - name: Publish Release with APK
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/heads/main')
         with:
           tag_name: v1.0.0
-          name: "Doraemon AI Android App v1.0.0"
+          name: "Doraemon AI Android APK v1.0.0"
           body: |
             ### 🤖 Doraemon AI - Android APK Release
-            - Voice-first & text AI assistant with Google Gemini Live API
-            - Electric Blue Male Mode (`Puck`) & Spicy Crimson Red Female Mode (`Kore`)
-            - Real-time Web Audio PCM streaming & Browser function calling
+            - Dual personality: Electric Blue Male (`Puck`) & Spicy Crimson Red Female (`Kore`)
+            - Real-time voice & text interaction with Google Gemini Live
+            - Full audio streaming & WebRTC microphone support
             
-            **Download the attached APK below to install on your Android device!**
-          files: output-apk/*.apk
+            **Download `doraemon-ai-release.apk` below to install directly on your Android device!**
+          files: output-apk/doraemon-ai-release.apk
           draft: false
           prerelease: false
         env:
