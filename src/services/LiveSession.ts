@@ -2,6 +2,7 @@ import { AssistantState, AssistantSettings, ToolCallPayload } from '../types/ass
 import { AudioPlayer } from './AudioPlayer';
 import { AudioStreamer } from './AudioStreamer';
 import { ToolManager } from './ToolManager';
+import { getLiveWsUrl } from './apiClient';
 
 export interface LiveSessionCallbacks {
   onStateChange: (state: AssistantState) => void;
@@ -105,8 +106,7 @@ export class LiveSession {
       await this.audioPlayer.initContext();
 
       // 2. Establish WebSocket connection to backend Live API proxy
-      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-      const wsUrl = `${protocol}//${window.location.host}/api/live`;
+      const wsUrl = getLiveWsUrl();
 
       await new Promise<void>((resolve, reject) => {
         const timeout = setTimeout(() => {

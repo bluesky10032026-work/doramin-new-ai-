@@ -17,6 +17,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Web Bundle & Sync Assets
+        run: |
+          npm install --legacy-peer-deps
+          npm run build
+          mkdir -p android/app/src/main/assets
+          cp -r dist/* android/app/src/main/assets/
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -52,15 +64,16 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/heads/main')
         with:
-          tag_name: v1.0.0
-          name: "Doraemon AI Android APK v1.0.0"
+          tag_name: v1.0.1
+          name: "Doraemon AI Android APK v1.0.1 (Fixed Connection)"
           body: |
-            ### 🤖 Doraemon AI - Android APK Release
-            - Dual personality: Electric Blue Male (`Puck`) & Spicy Crimson Red Female (`Kore`)
-            - Real-time voice & text interaction with Google Gemini Live
-            - Full audio streaming & WebRTC microphone support
+            ### 🤖 Doraemon AI - Android APK Release v1.0.1
+            - **Fixed Connection & Server Error**: Bundles web assets directly inside APK (`file:///android_asset`) so the UI loads 100% reliably without network latency or 404 proxy issues.
+            - **Microphone & WebRTC Fix**: WebChromeClient now grants Android audio capture permissions seamlessly.
+            - **Dual Personality**: Electric Blue Male (`Puck`) & Spicy Crimson Red Female (`Kore`).
+            - **Custom Gemini API Key Support**: Add your key in Settings (⚙️) for direct Google Gemini intelligence.
             
-            **Download `doraemon-ai-release.apk` below to install directly on your Android device!**
+            **Download `doraemon-ai-release.apk` below to install directly on your Android phone!**
           files: output-apk/doraemon-ai-release.apk
           draft: false
           prerelease: false

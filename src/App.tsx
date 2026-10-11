@@ -18,6 +18,7 @@ import { StatusIndicator } from './components/StatusIndicator';
 import { SettingsPanel } from './components/SettingsPanel';
 import { BrowserActionHUD } from './components/BrowserActionHUD';
 import { GENDER_THEMES } from './config/constants';
+import { sendTextInput } from './services/apiClient';
 
 interface TextFeedbackMessage {
   id: string;
@@ -71,22 +72,7 @@ export default function App() {
     });
 
     try {
-      const response = await fetch('/api/interact-text', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          text: prompt,
-          gender: settings.gender,
-          customApiKey: settings.customApiKey,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to get feedback.');
-      }
-
+      const data = await sendTextInput(prompt, settings);
       const replyText = data.replyText || "I'm right here with you!";
 
       setLatestFeedback({
@@ -107,6 +93,15 @@ export default function App() {
         audio.onended = () => setIsAudioPlaying(false);
         audio.onerror = () => setIsAudioPlaying(false);
         await audio.play().catch(() => setIsAudioPlaying(false));
+      } else if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(replyText);
+        utterance.rate = 1.05;
+        utterance.pitch = isFemale ? 1.2 : 0.95;
+        setIsAudioPlaying(true);
+        utterance.onend = () => setIsAudioPlaying(false);
+        utterance.onerror = () => setIsAudioPlaying(false);
+        window.speechSynthesis.speak(utterance);
       }
     } catch (err) {
       console.error('Error getting text feedback:', err);
