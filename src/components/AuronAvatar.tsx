@@ -38,8 +38,8 @@ export const AuronAvatar: React.FC<DoremonAvatarProps> = ({
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
       dpr = window.devicePixelRatio || 1;
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      canvas.width = Math.max(200, rect.width || 360) * dpr;
+      canvas.height = Math.max(200, rect.height || 360) * dpr;
     };
     resize();
     window.addEventListener('resize', resize);

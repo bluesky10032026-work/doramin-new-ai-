@@ -32,8 +32,8 @@ export const Waveform: React.FC<WaveformProps> = ({
       if (!canvas) return;
       const rect = canvas.getBoundingClientRect();
       dpr = window.devicePixelRatio || 1;
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      canvas.width = Math.max(120, rect.width || 320) * dpr;
+      canvas.height = Math.max(30, rect.height || 56) * dpr;
     };
     resize();
     window.addEventListener('resize', resize);

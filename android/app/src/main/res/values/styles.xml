@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.DoraemonAI" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#2563EB</item>
+        <item name="colorPrimaryVariant">#1D4ED8</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="android:statusBarColor">#04060D</item>
+        <item name="android:navigationBarColor">#04060D</item>
+    </style>
+</resources>
