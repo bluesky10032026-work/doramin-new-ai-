@@ -13,6 +13,7 @@ import {
   EyeOff,
   User,
   Flame,
+  Smartphone,
 } from 'lucide-react';
 import { AssistantSettings, AssistantState, CharacterGender } from '../types/assistant';
 import { VOICE_CHARACTERS } from '../config/constants';
