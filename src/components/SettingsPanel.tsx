@@ -14,6 +14,7 @@ import {
   User,
   Flame,
   Smartphone,
+  Download,
 } from 'lucide-react';
 import { AssistantSettings, AssistantState, CharacterGender } from '../types/assistant';
 import { VOICE_CHARACTERS } from '../config/constants';
@@ -391,16 +392,30 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   To install as an Android app: open this web URL on your Android device (Chrome or Edge), tap the three dots menu (<span className="text-slate-200">⋮</span>), and choose <strong className="text-slate-200">"Add to Home screen"</strong> or <strong className="text-slate-200">"Install app"</strong>.
                 </p>
 
-                <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
-                  <span className="text-slate-400">Exported GitHub Repo:</span>
-                  <a
-                    href="https://github.com/bluesky10032026-work/doramin-new-ai-"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[11px] font-mono text-cyan-400 hover:text-cyan-300 underline"
-                  >
-                    doramin-new-ai- ↗
-                  </a>
+                <div className="pt-2 border-t border-slate-800 flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Compiled APK File:</span>
+                    <span className="text-[10px] font-mono text-emerald-400 font-medium">5.58 MB • v1.0.0</span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 pt-1">
+                    <a
+                      href="https://github.com/bluesky10032026-work/doramin-new-ai-/releases/download/v1.0.0/doraemon-ai-release.apk"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs shadow-md transition-all cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      Download APK
+                    </a>
+                    <a
+                      href="https://github.com/bluesky10032026-work/doramin-new-ai-/releases/tag/v1.0.0"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all text-center"
+                    >
+                      Release ↗
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
