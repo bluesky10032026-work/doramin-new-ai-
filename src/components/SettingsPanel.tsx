@@ -372,18 +372,50 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
               </div>
             </div>
 
-            {/* 4. About */}
+            {/* 4. Android App & GitHub Export */}
+            <div className="space-y-3">
+              <h4 className="text-xs uppercase font-mono tracking-wider text-emerald-400 flex items-center gap-1.5 font-semibold">
+                <Smartphone className="w-3.5 h-3.5" />
+                Android App & Repository
+              </h4>
+
+              <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2.5 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-200">Android PWA Ready</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-500/30 font-mono">
+                    Installable
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-400 leading-relaxed">
+                  To install as an Android app: open this web URL on your Android device (Chrome or Edge), tap the three dots menu (<span className="text-slate-200">⋮</span>), and choose <strong className="text-slate-200">"Add to Home screen"</strong> or <strong className="text-slate-200">"Install app"</strong>.
+                </p>
+
+                <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
+                  <span className="text-slate-400">Exported GitHub Repo:</span>
+                  <a
+                    href="https://github.com/bluesky10032026-work/doramin-new-ai-"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[11px] font-mono text-cyan-400 hover:text-cyan-300 underline"
+                  >
+                    doramin-new-ai- ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* 5. About */}
             <div className="p-3.5 rounded-xl bg-slate-900/40 border border-slate-800 space-y-1">
               <h5 className="text-xs font-semibold text-slate-200 flex items-center gap-1.5">
                 <Info className="w-3.5 h-3.5 text-blue-400" />
                 About Doraemon AI
               </h5>
               <p className="text-[11px] text-slate-400 leading-relaxed">
-                Dual-personality voice assistant with Male (Blue) and Sassy Female (Red) modes powered by Google Gemini Live API.
+                Dual-personality voice and text assistant with Male (Blue) and Sassy Female (Red) modes powered by Google Gemini Live API.
               </p>
               <div className="flex items-center gap-1 text-[10px] font-mono text-slate-400 pt-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                Real-time Audio-to-Audio Architecture
+                Real-time Audio & Text Architecture
               </div>
             </div>
           </div>
