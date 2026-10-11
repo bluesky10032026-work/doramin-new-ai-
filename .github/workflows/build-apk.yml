@@ -23,15 +23,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Set up Gradle 8.2
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: '8.2'
 
       - name: Build Android APK with Gradle
+        env:
+          ANDROID_HOME: /usr/local/lib/android/sdk
         run: |
           cd android
           gradle assembleDebug --stacktrace
@@ -40,7 +39,7 @@ jobs:
         run: |
           mkdir -p output-apk
           find android/app/build/outputs/apk/ -name "*.apk" -exec cp {} output-apk/doraemon-ai-release.apk \;
-          ls -la output-apk/
+          ls -lh output-apk/
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
